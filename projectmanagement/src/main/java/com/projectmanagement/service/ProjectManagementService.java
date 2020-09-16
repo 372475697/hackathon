@@ -1,6 +1,7 @@
 package com.projectmanagement.service;
 
 import com.projectmanagement.dao.ProjectManagementDao;
+import com.projectmanagement.entity.ResponseData;
 import com.projectmanagement.entity.StatisticsInfo;
 import com.projectmanagement.entity.ProjectInfo;
 import com.projectmanagement.util.DateUtils;
@@ -15,28 +16,26 @@ public class ProjectManagementService {
     @Autowired
     private ProjectManagementDao projectManagementDao;
 
-    public int add(ProjectInfo projectInfo) {
+    public ResponseData add(ProjectInfo projectInfo) {
         projectInfo.setCutoverMonth(DateUtils.convert(projectInfo.getCutoverDate(),"yyyy-MM-dd","yyyy-MM"));
-        return projectManagementDao.add(projectInfo);
+        return ResponseData.success("add success",projectManagementDao.add(projectInfo)) ;
     }
 
-    public int delete(ProjectInfo projectInfo) {
-        return projectManagementDao.delete(projectInfo);
+    public ResponseData delete(ProjectInfo projectInfo) {
+        return ResponseData.success("delete success",projectManagementDao.delete(projectInfo));
 
     }
 
-    public int update(ProjectInfo projectInfo) {
+    public ResponseData update(ProjectInfo projectInfo) {
         projectInfo.setCutoverMonth(DateUtils.convert(projectInfo.getCutoverDate(),"yyyy-MM-dd","yyyy-MM"));
-        return projectManagementDao.update(projectInfo);
+        return ResponseData.success("update success", projectManagementDao.update(projectInfo));
     }
 
-    public List<ProjectInfo> inquiry(ProjectInfo projectInfo) {
-        return projectManagementDao.inquiry(projectInfo);
+    public ResponseData inquiry(ProjectInfo projectInfo) {
+        return ResponseData.success(projectManagementDao.inquiry(projectInfo));
     }
 
-    public List<StatisticsInfo> statisticsByMonth() {
-        return projectManagementDao.statisticsByMonth();
+    public ResponseData statisticsByMonth() {
+        return ResponseData.success(projectManagementDao.statisticsByMonth());
     }
-
-
 }

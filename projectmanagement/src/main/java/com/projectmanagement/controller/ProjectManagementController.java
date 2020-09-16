@@ -19,27 +19,27 @@ public class ProjectManagementController {
 
     @PostMapping("add")
     public ResponseData add(@RequestBody ProjectInfo projectInfo) {
-        return ResponseData.success("add success",projectManagementService.add(projectInfo)) ;
+        return projectManagementService.add(projectInfo);
     }
 
     @PostMapping("delete")
     public ResponseData delete(@RequestBody ProjectInfo projectInfo) {
-        return ResponseData.success("delete success",projectManagementService.delete(projectInfo));
+        return projectManagementService.delete(projectInfo);
 
     }
 
     @PostMapping("update")
     public ResponseData update(@RequestBody ProjectInfo projectInfo) {
-        return ResponseData.success("update success", projectManagementService.update(projectInfo));
+        return projectManagementService.update(projectInfo);
     }
 
     @PostMapping("inquiry")
     public ResponseData inquiry(@RequestBody ProjectInfo projectInfo) {
-        return ResponseData.success(projectManagementService.inquiry(projectInfo));
+        return projectManagementService.inquiry(projectInfo);
     }
 
     @PostMapping("statisticsByMonth")
     public ResponseData statisticsByMonth() {
-        return ResponseData.success(projectManagementService.statisticsByMonth());
+        return projectManagementService.statisticsByMonth();
     }
 }
