@@ -1,8 +1,8 @@
-package com.projectmanagement.dao;
+package projectmanagement.dao;
 
-import com.projectmanagement.entity.ProjectInfo;
-import com.projectmanagement.entity.StatisticsInfo;
-import com.projectmanagement.mapper.ProjectManagementMapper;
+import projectmanagement.entity.ProjectInfo;
+import projectmanagement.entity.StatisticsInfo;
+import projectmanagement.mapper.ProjectManagementMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

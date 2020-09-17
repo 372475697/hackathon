@@ -1,16 +1,14 @@
-package com.projectmanagement.service;
+package projectmanagement.service;
 
-import com.projectmanagement.dao.ProjectManagementDao;
-import com.projectmanagement.entity.ResponseData;
-import com.projectmanagement.entity.StatisticsInfo;
-import com.projectmanagement.entity.ProjectInfo;
-import com.projectmanagement.util.DateUtils;
+import projectmanagement.dao.ProjectManagementDao;
+import projectmanagement.entity.ProjectInfo;
+import projectmanagement.entity.ResponseData;
+import projectmanagement.entity.StatisticsInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import projectmanagement.util.DateUtils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 @Service

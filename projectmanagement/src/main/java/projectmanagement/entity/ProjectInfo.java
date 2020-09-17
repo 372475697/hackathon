@@ -1,6 +1,6 @@
-package com.projectmanagement.entity;
+package projectmanagement.entity;
 
-import com.projectmanagement.util.StringUtils;
+import projectmanagement.util.StringUtils;
 
 public class ProjectInfo {
     private String targetRelease;

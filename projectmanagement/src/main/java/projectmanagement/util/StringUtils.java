@@ -1,4 +1,4 @@
-package com.projectmanagement.util;
+package projectmanagement.util;
 
 public class StringUtils {
     private StringUtils(){}

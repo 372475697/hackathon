@@ -1,4 +1,4 @@
-package com.projectmanagement.entity;
+package projectmanagement.entity;
 
 public class ResponseData {
     private String code;

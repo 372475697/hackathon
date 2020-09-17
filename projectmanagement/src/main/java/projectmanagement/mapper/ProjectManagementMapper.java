@@ -1,7 +1,7 @@
-package com.projectmanagement.mapper;
+package projectmanagement.mapper;
 
-import com.projectmanagement.entity.StatisticsInfo;
-import com.projectmanagement.entity.ProjectInfo;
+import projectmanagement.entity.StatisticsInfo;
+import projectmanagement.entity.ProjectInfo;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
