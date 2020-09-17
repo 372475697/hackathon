@@ -96,7 +96,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./budget.html" class="nav-link">
+                <a href="./index1.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Project budget Monitor</p>
                 </a>
@@ -135,7 +135,7 @@
         
 
         <div class="row">
-		  <div class="col-md-3">
+		  <!--  <div class="col-md-3">
 			<div class="input-group mb-3">
                   <select id="selectedPp" class="form-control">
 						  <option value="ALL">---ALL---</option>
@@ -153,14 +153,14 @@
                   </span>
                 </div>
 		  
-		  </div>
+		  </div>-->
           <div class="col-md-12">
             <!-- Line chart -->
             <div class="card card-primary card-outline">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="far fa-chart-bar"></i>
-                  Project SDLC Monitor
+                  Project budget Monitor
                 </h3>
 
                 <div class="card-tools">
@@ -173,7 +173,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <div id="line-chart" style="height: 300px;"></div>
+                <div id="echarts" style="height: 300px;"></div>
               </div>
               <!-- /.card-body-->
             </div>
@@ -226,17 +226,10 @@
 <script>
 
 
-	var linechart = echarts.init(document.getElementById("line-chart"));
-	var sampledata = {};
+
 
   $(function () {
   
-	$("#refreshButton").click(getPpProjectData);
-	
-    linechart.on('click',function (param){
-		refreshTable(param);
-	
-	});
 
     var data        = [],
         totalPoints = 100
@@ -294,151 +287,147 @@
       opacity : 0.8
     }).appendTo('body')
     
-	
-	linechart.showLoading();
-	$.ajax({
-        url:  "http://localhost:8080/projectTracker/statisticsByMonth?pp=ALL",
-        type:"get", 
-        data:"", 
-        dataType: "json",
-        success:function (data) {
-        	sampledata = data.object;
-        	refreshLineChart();
+    var dataAll = [95,120,99,140,120,130,110,120,110,100,98,81];  
+    var data1=[];        //放第二级
+    var data2=[];        //放最下级
+    var data3=[];
+    for(let i=0;i<dataAll.length;i++){
+    	if(dataAll[i] > 100){
+    		data2.push(100);
+    		data1.push(dataAll[i]-100);
+    		data3.push(0);
+    	}else{
+    		data2.push(dataAll[i]);
+    		data1.push(0);
+    		data3.push(100-dataAll[i]);
+    	}
+        
+        
+    }
+    var option = {
+        "backgroundColor": "rgb(181, 232, 232)",
+        "color": ["#3cefff"],
+        "tooltip": {},
+        "grid": {
+            "containLabel": true
         },
-        error:function (error) {
-            bootbox.alert("table loading failed");
-        }
-    })
+        "legend": {
+            "data": ["Utilized Capacity","Run Beyond the budget","Forecast Demand"],
+            "textStyle": {
+                "color": 'black'
+            }
+        },
+        "xAxis": [{
+            "type": "category",
+            "data": ["M1", "R1", "M3", "M4", "R2", "M6", "M7", "R3", "M9", "M10", "R4",
+                "M12"
+            ],
+            "axisTick": {
+                "alignWithLabel": true
+            },
+            "nameTextStyle": {
+                "color": "#82b0ec"
+            },
+            "axisLine": {
+                "lineStyle": {
+                    "color": "#82b0ec"
+                }
+            },
+            "axisLabel": {
+                "textStyle": {
+                    "color": "#82b0ec"
+                }
+            }
+        }],
+        "yAxis": [{
+            "type": "value",
+            "axisLabel": {
+                "textStyle": {
+                    "color": "#82b0ec"
+                },
+                "formatter": "{value}"
+            },
+            "splitLine": {
+                "lineStyle": {
+                    "color": "#0c2c5a"  //设置Y轴横线样式
+                }
+            },
+            "axisLine": {   //隐藏Y轴实线
+                "show": false,
+            }
+        }],
+        "series": [
+            {                
+            "type": "bar",
+            "name" :"Utilized Capacity",
+            "stack":2,  //这个属性很重要，他决定这些柱状图是否是拼接在一起的，拼接在一起的stack值必须相等
+            "itemStyle": {
+            	"normal": {
+                    "color": 'green'
+                },
+                "emphasis": {
+                    "color": 'green'
+                }
+            },
+            "barWidth": "20",
+            "data": data2,
+            "markLine": {
+                "silent": true,
+                "symbol": "none",
+                "label": {
+                    "position": "middle",
+                    "formatter": "{b}"
+                },
+                "data": [{
+                    "name": "Utilized Capacity",
+                    "yAxis": 100,
+                    "lineStyle": {
+                        "opacity": 100
+                    },
+                    "label": {
+                        "position": "end",
+                        "formatter": "{b}\n {c}%"
+                    }
+                }]
+            }
+        },{                
+            "type": "bar",
+            "name" :"Run Beyond the budget",
+            "stack":2,
+            "itemStyle": {
+                "normal": {
+                    "color": 'red'
+                },
+                "emphasis": {
+                    "color": 'red'
+                }
+            },
+            "barWidth": "20",
+            "data": data1,
+        },{                
+            "type": "bar",
+            "name" :"Forecast Demand",
+            "stack":2,
+            "itemStyle": {
+                "normal": {
+                    "color": 'yellow'
+                },
+                "emphasis": {
+                    "color": 'yellow'
+                }
+            },
+            "barWidth": "20",
+            "data": data3,
+        }]
+    };
+    var myEcharts = echarts.init(document.getElementById("echarts"));
+    myEcharts.setOption(option);
 	
-	/*var lineOption = {
-		title : {
-		text : '',
-		textStyle : { //new add
-		color : '#386db3', //color
-		FontStyle : 'normal', //style
-		fontWeight : 'normal',//fat/thin
-		// fontFamily:"Microsoft yahei",
-		// fontSize:20,  //size
-		align : 'center'
-		},
-		},
-		grid : { //show the chart located in the canvas//new add
-		x : 50,
-		y : 55,
-		x2 : 50,
-		y2 : 60,
-		borderWidth : 1
-		},
-		tooltip : {},
-		legend : {
-		data : [ 'number of projects' ]
-		},
-		xAxis : {
-		//data : sampledata.date
-		data : ['M1','R1','M3','M4','R2','M6','M7','R3','M9','M10','R3','M12']
-		},
-		yAxis : {},
-		series : [ {
-			name : 'number of projects',
-			type : 'line',
-			symbol : 'circle',//new add
-			symbolSize : 12,//new add the pint size
-			itemStyle : { //new add
-				normal : {
-					color : '#386db3',
-					lineStyle : {
-					color : '#386db3',
-					width : 3
-					}
-				}
-			},
-			//data : sampledata.num
-			data : [sampledata['M1'],sampledata['R1'],sampledata['M3'],sampledata['M4'],sampledata['R2'],sampledata['M6'],sampledata['M7'],sampledata['R3'],sampledata['M9'],sampledata['M10'],sampledata['R4'],sampledata['M12']]
-		}]
-		};
-		linechart.setOption(lineOption);
-		linechart.hideLoading();*/
+
 		
 	})
 	
-	function getPpProjectData(){
-		var pp = $("#selectedPp").val();
-	  $.ajax({
-	        url:  "http://localhost:8080/projectTracker/statisticsByMonth?pp="+pp,
-	        type:"get", 
-	        data:"", 
-	        dataType: "json",
-	        success:function (data) {
-	        	sampledata = data.object;
-	        	refreshLineChart();
-	        },
-	        error:function (error) {
-	            bootbox.alert("table loading failed");
-	        }
-	    })
- 	 }
 	
-	function refreshLineChart(){
-		var pp = $("#selectedPp").val();
-		linechart.showLoading();
-		var lineOption = {
-			title : {
-			text : '',
-			textStyle : { //new add
-			color : '#386db3', //color
-			FontStyle : 'normal', //style
-			fontWeight : 'normal',//fat/thin
-			// fontFamily:"Microsoft yahei",
-			// fontSize:20,  //size
-			align : 'center'
-			},
-			},
-			grid : { //show the chart located in the canvas//new add
-			x : 50,
-			y : 55,
-			x2 : 50,
-			y2 : 60,
-			borderWidth : 1
-			},
-			tooltip : {},
-			legend : {
-			data : [ 'number of '+pp+' projects' ]
-			},
-			xAxis : {
-			//data : sampledata.date
-			data : ['M1','R1','M3','M4','R2','M6','M7','R3','M9','M10','R3','M12']
-			},
-			yAxis : {},
-			series : [ {
-				name : 'number of '+pp+' projects',
-				type : 'line',
-				symbol : 'circle',//new add
-				symbolSize : 12,//new add the pint size
-				itemStyle : { //new add
-					normal : {
-						color : '#386db3',
-						lineStyle : {
-						color : '#386db3',
-						width : 3
-						}
-					}
-				},
-				//data : sampledata.num
-				data : [sampledata['M1'],sampledata['R1'],sampledata['M3'],sampledata['M4'],sampledata['R2'],sampledata['M6'],sampledata['M7'],sampledata['R3'],sampledata['M9'],sampledata['M10'],sampledata['R4'],sampledata['M12']]
-			}]
-			};
-		
-		linechart.setOption(lineOption);
-		linechart.hideLoading();
-	
-	}
-	
-	function refreshTable(param){
-		
-		alert(param.name+' total '+param.data +' projects for '+$("#selectedPp").val());
-		
-		
-	}
 
 </script>
 </body>
