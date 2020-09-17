@@ -1,35 +1,37 @@
 package projectmanagement.entity;
 
+import projectmanagement.util.DateUtils;
 import projectmanagement.util.StringUtils;
 
 public class ProjectInfo {
-    private String targetRelease;
-    private String ctry;
-    private String jiraCode;
-    private String projectName;
-    private String projectDescription;
-    private String fitComFirm;
-    private String rag;
-    private String remark;
-    private String status;
-    private String als;
-    private String fms;
-    private String ftfg;
-    private String im;
-    private String rcp;
-    private String rm;
-    private String ts;
-    private String ms;
-    private String ba;
-    private String pm;
-    private String brdDate;
-    private String uatPlanDate;
-    private String uatRelDate;
-    private String createTime;
-    private String cutoverDate;
-    private String cutoverMonth;
-    private String oppmOwner;
-    private String frRelDate;
+    private String targetRelease="";
+    private String ctry="";
+    private String jiraCode="";
+    private String projectName="";
+    private String projectDescription="";
+    private String fitComFirm="";
+    private String rag="";
+    private String remark="";
+    private String status="";
+    private String als="";
+    private String fms="";
+    private String ftfg="";
+    private String im="";
+    private String rcp="";
+    private String rm="";
+    private String ts="";
+    private String ms="";
+    private String ba="";
+    private String pm="";
+    private String brdDate="";
+    private String uatPlanDate="";
+    private String uatRelDate="";
+    private String createTime="";
+    private String cutoverDate="";
+    private String cutoverMonth="";
+    private String oppmOwner="";
+    private String frRelDate="";
+    private String projectProgress="0";
 
     public void setTargetRelease(String targetRelease) {
         this.targetRelease = targetRelease;
@@ -164,6 +166,33 @@ public class ProjectInfo {
     }
 
     public String getRag() {
+        int cutoverDate= Integer.parseInt(DateUtils.convert(cutoverMonth,"yyyy-MM","yyyyMM"));
+        int currentDate=Integer.parseInt(DateUtils.current());
+        if (cutoverDate<currentDate){
+            if (Integer.parseInt(Status.getProgress(status))==100){
+                rag="Green";
+            }else{
+                rag="Red";
+            }
+        }else if (cutoverDate==currentDate){
+            if (Integer.parseInt(Status.getProgress(status))<80){
+                rag="Red";
+            }else if (Integer.parseInt(Status.getProgress(status))==80){
+                rag="Amber";
+            }else{
+                rag="Green";
+            }
+        }else if (cutoverDate-1==currentDate){
+            if (Integer.parseInt(Status.getProgress(status))<60){
+                rag="Red";
+            }else if (Integer.parseInt(Status.getProgress(status))==60){
+                rag="Amber";
+            }else{
+                rag="Green";
+            }
+        }else{
+            rag="Green";
+        }
         return rag;
     }
 
@@ -245,5 +274,14 @@ public class ProjectInfo {
 
     public String getFrRelDate() {
         return frRelDate;
+    }
+
+    public String getProjectProgress() {
+        projectProgress=Status.getProgress(this.status);
+        return projectProgress;
+    }
+
+    public void setProjectProgress(String projectProgress) {
+        this.projectProgress = projectProgress;
     }
 }

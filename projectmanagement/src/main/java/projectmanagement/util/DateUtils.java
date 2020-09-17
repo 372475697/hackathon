@@ -12,6 +12,16 @@ public class DateUtils {
             return simpleDateFormat.format(date);
         }catch (Exception e){
             System.out.println(e.toString());
+            return dateString;
+        }
+    }
+
+    public static String current(){
+        try{
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyyMM");
+            return simpleDateFormat.format(new Date());
+        }catch (Exception e){
+            System.out.println(e.toString());
             return "";
         }
     }

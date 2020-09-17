@@ -19,6 +19,7 @@ public class ProjectManagementService {
 
     public ResponseData add(ProjectInfo projectInfo) {
         projectInfo.setCutoverMonth(DateUtils.convert(projectInfo.getCutoverDate(),"yyyy-MM-dd","yyyy-MM"));
+        projectInfo.setRag("G");
         return ResponseData.success("add success",projectManagementDao.add(projectInfo)) ;
     }
 
@@ -29,11 +30,13 @@ public class ProjectManagementService {
 
     public ResponseData update(ProjectInfo projectInfo) {
         projectInfo.setCutoverMonth(DateUtils.convert(projectInfo.getCutoverDate(),"yyyy-MM-dd","yyyy-MM"));
+		projectInfo.setRag("G");
         return ResponseData.success("update success", projectManagementDao.update(projectInfo));
     }
 
     public ResponseData inquiry(ProjectInfo projectInfo) {
-        return ResponseData.success(projectManagementDao.inquiry(projectInfo));
+		List<ProjectInfo> list=projectManagementDao.inquiry(projectInfo);
+        return ResponseData.success(list);
     }
 
     public ResponseData statisticsByMonth(String pp) {
