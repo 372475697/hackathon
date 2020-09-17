@@ -1,4 +1,4 @@
-package com.projectmanagement.util;
+package projectmanagement.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

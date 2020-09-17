@@ -1,4 +1,4 @@
-package com.projectmanagement.entity;
+package projectmanagement.entity;
 
 public class StatisticsInfo {
     private int count;

@@ -1,9 +1,9 @@
-package com.projectmanagement.controller;
+package projectmanagement.controller;
 
 
-import com.projectmanagement.entity.ProjectInfo;
-import com.projectmanagement.entity.ResponseData;
-import com.projectmanagement.service.ProjectManagementService;
+import projectmanagement.entity.ProjectInfo;
+import projectmanagement.entity.ResponseData;
+import projectmanagement.service.ProjectManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,27 +23,52 @@ public class ProjectManagementController {
 
     @PostMapping("add")
     public ResponseData add(@RequestBody ProjectInfo projectInfo) {
-        return projectManagementService.add(projectInfo);
+        try {
+            return projectManagementService.add(projectInfo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseData.fail("1000","add data fail");
+        }
     }
 
     @PostMapping("delete")
     public ResponseData delete(@RequestBody ProjectInfo projectInfo) {
-        return projectManagementService.delete(projectInfo);
+        try {
+            return projectManagementService.delete(projectInfo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseData.fail("1000","delete data fail");
+        }
 
     }
 
     @PostMapping("update")
     public ResponseData update(@RequestBody ProjectInfo projectInfo) {
-        return projectManagementService.update(projectInfo);
+        try {
+            return projectManagementService.update(projectInfo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseData.fail("1000","update data fail");
+        }
     }
 
     @PostMapping("inquiry")
     public ResponseData inquiry(@RequestBody ProjectInfo projectInfo) {
-        return projectManagementService.inquiry(projectInfo);
+        try {
+            return projectManagementService.inquiry(projectInfo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseData.fail("1000","inquiry data fail");
+        }
     }
 
     @GetMapping("statisticsByMonth")
     public ResponseData statisticsByMonth(@RequestParam String pp) {
-        return projectManagementService.statisticsByMonth(pp);
+        try {
+            return projectManagementService.statisticsByMonth(pp);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseData.fail("1000", "inquiry data fail");
+        }
     }
 }
