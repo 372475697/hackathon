@@ -18,7 +18,11 @@ public interface ProjectManagementMapper {
     @Update("UPDATE project_tracker SET TARGET_RELEASE=#{targetRelease},CTRY=#{ctry},JIRA_CODE=#{jiraCode},PROJECT_NAME=#{projectName},PROJECT_DESCRIPTION=#{projectDescription},FIT_COMFIRM=#{fitComFirm},RAG=#{rag},REMARK=#{remark},STATUS=#{status},ALS=#{als},FMS=#{fms},FTFG=#{ftfg},IM=#{im},RCP=#{rcp},RM=#{rm},TS=#{ts},MS=#{ms},BA=#{ba},PM=#{pm},BRD_DATE=#{brdDate},UAT_PLAN_DATE=#{uatPlanDate},UAT_RELDATE=#{uatRelDate},CREATE_TIME=#{createTime},CUTOVER_DATE=#{cutoverDate},CUTOVER_YM=#{cutoverMonth},OPPM_OWNER=#{oppmOwner},FR_RELDATE=#{frRelDate} WHERE TARGET_RELEASE=#{targetRelease} AND CTRY=#{ctry} AND PROJECT_NAME=#{projectName}")
     int update(ProjectInfo projectInfo);
 
-    @Select("<script>select * from project_tracker where 1=1 <if test='cutoverMonth !=null and cutoverMonth !=\"\"'>and CUTOVER_YM=#{cutoverMonth} </if></script>")
+    @Select("<script>" +
+                "select * from project_tracker where 1=1 " +
+                "<if test='targetRelease !=null and targetRelease !=\"\"'>and TARGET_RELEASE=#{targetRelease} </if> " +
+                 "<if test='oppmOwner !=null'>and  ${oppmOwner} > 0 </if>" +
+            "</script>")
     @Results({
             @Result(property ="targetRelease", column = "TARGET_RELEASE"),
             @Result(property ="ctry", column = "CTRY"),

@@ -1,5 +1,6 @@
 package projectmanagement.dao;
 
+import org.apache.ibatis.jdbc.Null;
 import projectmanagement.entity.ProjectInfo;
 import projectmanagement.entity.StatisticsInfo;
 import projectmanagement.mapper.ProjectManagementMapper;
@@ -28,6 +29,9 @@ public class ProjectManagementDao {
     }
 
     public List<ProjectInfo> inquiry(ProjectInfo projectInfo) {
+        if("ALL".equals(projectInfo.getOppmOwner())) {
+           projectInfo.setOppmOwner(null);
+        }
         return projectManagementMapper.inquiry(projectInfo);
     }
 

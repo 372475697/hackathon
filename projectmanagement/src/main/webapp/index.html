@@ -3,14 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CPB Project Management</title>
+  <title>AdminLTE 3 | Flot Charts</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="./plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="./dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -22,7 +27,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="./pages/charts/index.html" class="nav-link">Home</a>
+        <a href="./../../pages/charts/index.html" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -52,7 +57,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="./dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">XXX</a>
@@ -75,7 +80,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false"><a href="flot.html" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>CPB Project Management</p>
+                  <p>Flot</p>
                 </a>
       </nav>
       <!-- /.sidebar-menu -->
@@ -110,15 +115,15 @@
 		  <div class="col-md-3">
 			<div class="input-group mb-3">
                   <select id="selectedPp" class="form-control">
-						  <option value="ALL">---ALL---</option>
-                          <option value="ALS">ALS</option>
-                          <option value="RCP">RCP</option>
-                          <option value="MS">MS</option>
-                          <option value="IM">IM</option>
-                          <option value="TS">TS</option>
-						  <option value="FMS">FMS</option>
-                          <option value="FTFG">FTFG</option>
-                          <option value="RM">RM</option>
+						  <option>---ALL---</option>
+                          <option vaule="ALS">ALS</option>
+                          <option vaule="RC+">RC+</option>
+                          <option vaule="MS">MS</option>
+                          <option vaule="IM">IM</option>
+                          <option vaule="TS">TS</option>
+						  <option vaule="FMS">FMS</option>
+                          <option vaule="FTFG">FTFG</option>
+                          <option vaule="RM">RM</option>
                   </select>
                   <span class="input-group-append">
                     <button id="refreshButton" type="button" class="btn btn-info btn-flat">Go!</button>
@@ -157,6 +162,40 @@
           
           <!-- /.col -->
         </div>
+        
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-table"></i>
+                  Services Portion Table - top 5
+                </h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="responsive" id="printdiv">
+                  <table id="serviceTable" class="table table-bordered table-hover display"></table>
+                </div>
+                <div class="row no-print">
+                  <div class="col-xs-12">
+                    <button type="button" class="btn btn-primary" style="margin-top: -50px; margin-left: 50px;" id="reportBtn">
+                      <i class="glyphicon glyphicon-download-alt"></i>Export Excel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
@@ -180,36 +219,300 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="./plugins/jquery/jquery.min.js"></script>
+<script src="../../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="./plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="../../plugins/jszip/jszip.min.js"></script>
+<script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+<script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<script src="../../plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.min.js"></script>
 <!-- AdminLTE App -->
-<script src="./dist/js/adminlte.min.js"></script>
+<script src="../../dist/js/adminlte.min.js"></script>
 <!-- FLOT CHARTS -->
-<script src="./plugins/flot/jquery.flot.js"></script>
+<script src="../../plugins/flot/jquery.flot.js"></script>
 <!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
-<script src="./plugins/flot/plugins/jquery.flot.resize.js"></script>
+<script src="../../plugins/flot/plugins/jquery.flot.resize.js"></script>
 <!-- FLOT PIE PLUGIN - also used to draw donut charts -->
-<script src="./plugins/flot/plugins/jquery.flot.pie.js"></script>
+<script src="../../plugins/flot/plugins/jquery.flot.pie.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="./dist/js/demo.js"></script>
-<script src="./plugins/echarts/echarts.min.js"></script>
+<script src="../../dist/js/demo.js"></script>
+<script src="../../plugins/echarts/echarts.min.js"></script>
+
+
+<!-- Page specific script -->
+<script>
+  $(function () {
+    searchList("","ALL");
+  });
+
+  var emptyDataList = [];
+  var maintableOption = {
+          paging: true,
+          ordering: true,
+          searching: false,
+          autoWidth: false,
+          info: false,
+          fillter: false,
+          pageLength: 10,
+          "scrollX": true,
+          lengthChange: false,
+          processing: true,
+          select: {
+              style: "single"
+          },
+          data: emptyDataList,
+          "fixedColumns": {
+              "leftColumns": 2
+          },
+          columns: [{
+              title: "Target Release",
+              data: "targetRelease",
+              sortable: true,
+              width: "9%"
+          },{
+              title: "Ctry",
+              data: "ctry",
+              sortable: true,
+              width: "4%"
+          },{
+              title: "JIRA#",
+              data: "jiraCode",
+              sortable: true,
+              width: "5%"
+          },{
+              title: "Project Name(from JIRA)",
+              data: "projectName",
+              sortable: true,
+              width: "14%"
+          },{
+              title: "RAG",
+              data: "rag",
+              sortable: true,
+              width: "4%"
+          },{
+              title: "Fitment Confirmation",
+              data: "fitComFirm",
+              sortable: true,
+              width: "12%"
+          },{
+              title: "Remarks",
+              data: "remark",
+              sortable: true,
+              width: "5%"
+          },{
+              title: "SDLC Status",
+              data: "status",
+              sortable: true,
+              width: "8%"
+          },{
+              title: "ALS",
+              data: "als",
+              sortable: true,
+              width: "4%"
+          },{
+              title: "FMS",
+              data: "fms",
+              sortable: true,
+              width: "4%"
+          },{
+              title: "FTFG",
+              data: "ftfg",
+              sortable: true,
+              width: "4%"
+          },{
+              title: "IM",
+              data: "im",
+              sortable: true,
+              width: "3%"
+          },{
+              title: "RCP",
+              data: "rcp",
+              sortable: true,
+              width: "4%"
+          },{
+              title: "TS",
+              data: "ts",
+              sortable: true,
+              width: "3%"
+          },{
+              title: "MS",
+              data: "ms",
+              sortable: true,
+              width: "3%"
+          },{
+              title: "BA Assigned",
+              data: "ba",
+              sortable: true,
+              width: "7%"
+          },{
+              title: "PM",
+              data: "pm",
+              sortable: true,
+              width: "4%"
+          },{
+              title: "Total L0",
+              data: "totalL0",
+              width: "10%"
+          },{
+              title: "Total L1",
+              data: "totalL1",
+              width: "10%"
+          },{
+              title: "Total L0 for Capacity",
+              data: "capacity",
+              width: "20%"
+          },{
+              title: "BRD Recd Date",
+              data: "brdDate",
+              sortable: true,
+              width: "15%"
+          }],
+          "columnDefs" : [ {
+              "targets" : 22,
+              "data" : null,
+              sortable: false,
+              "render" : function(data, type,row) {
+                  var id = '"' + row.id + '"';
+                  var html = "<a href='javascript:void(0);' class='up btn btn-default btn-xs'><i class=' glyphicon glyphicon-edit'></i> Update</a>"
+                  html += "<a href='javascript:void(0);'   class='down btn btn-default btn-xs'  οnclick='deleteThisRowPapser("+ id + ")' > <i class='fa fa-times'></i> Delete</a>"
+                  return html;
+              }
+          }],
+      };
+  var table = $("#serviceTable").DataTable(maintableOption);
+
+
+  function ref(arr) {
+      table.clear();
+      table.rows.add(arr);
+      table.page('first').draw(false);
+  }
+  function searchList(targetRelease,oppmOwner) {
+        var data = {};
+        data.targetRelease = targetRelease;
+        data.oppmOwner=oppmOwner;
+      $.ajax({
+          url: "/projectTracker/inquiry",
+          type: "post",
+          data:  JSON.stringify(data),
+          dataType: "json",
+          contentType: "application/json",
+          success: function(result) {
+            if (result.code == "0000") {
+              if (result.object.length > 0) {
+                 ref(result.object);
+              } else {
+                emptyDataList = [];
+              }
+            }
+          }
+        });
+  }
+  function newList() {
+        var data = {};
+        data.targetRelease = "M12";
+        data.ctry = "AP",
+        data.jiraCode = "C154345A-657",
+        data.projectName = "project-testM12",
+        data.projectDescription = "the  project for test",
+        data.fitComFirm = "Pending Fitment",
+        data.rag = "G",
+        data.remark = "",
+        data.status = "Requirements",
+        data.als = "12.5",
+        data.fms = "0",
+        data.ftfg = "0",
+        data.im = "0",
+        data.rcp = "10",
+        data.rm = "0",
+        data.ts = "20",
+        data.ms = "0",
+        data.ba = "Ban A",
+        data.pm = "Ban B",
+        data.brdDate = "2020-12-15",
+        data.uatPlanDate = "2020-12-15",
+        data.uatRelDate = "2020-12-15",
+        data.createTime = "2020-12-15 21:47:20.0",
+        data.cutoverDate = "2020-12-15",
+        data.cutoverMonth = "2020-12",
+        data.oppmOwner = "TEST_OWNER",
+        data.frRelDate = "2020-12-15"
+        $.ajax({
+          url: "/projectTracker/add",
+          type: "post",
+          data: data,
+          dataType: "json",
+          success: function(result) {
+            if (result.result_code == "0000") {
+                
+            }
+          }
+        });
+  }
+  function deleteList() {
+        var data = {};
+        data.targetRelease = "M12";
+        data.ctry = "AP";
+        data.projectName = "project-testM12";
+        $.ajax({
+          url: "/projectTracker/delete",
+          type: "post",
+          data: data,
+          dataType: "json",
+          success: function(result) {
+            if (result.result_code == "0000") {
+
+            }
+          }
+        });
+  }
+  function updateList() {
+        var data = {};
+        data.targetRelease = month;
+        $.ajax({
+          url: "/projectTracker/update",
+          type: "post",
+          data: data,
+          dataType: "json",
+          success: function(result) {
+            if (result.result_code == "0000") {
+
+            }
+          }
+        });
+  }
+</script>
+
 <!-- Page specific script -->
 <script>
 
 
 	var linechart = echarts.init(document.getElementById("line-chart"));
-	var sampledata = {};
+
 
   $(function () {
   
-	$("#refreshButton").click(getPpProjectData);
-	
+	$("#refreshButton").click(refreshLineChart);
     linechart.on('click',function (param){
 		refreshTable(param);
 	
 	});
-
+    /*
+     * Flot Interactive Chart
+     * -----------------------
+     */
+    // We use an inline data source in the example, usually data would
+    // be fetched from a server
     var data        = [],
         totalPoints = 100
 
@@ -234,6 +537,7 @@
         data.push(y)
       }
 
+      // Zip the generated y values with the x values
       var res = []
       for (var i = 0; i < data.length; ++i) {
         res.push([i, data[i]])
@@ -242,7 +546,16 @@
       return res
     }
 
+    
+    
+    
 
+
+    /*
+     * LINE CHART
+     * ----------
+     */
+    //LINE randomly generated data
 
     var sin = [],
         cos = []
@@ -259,30 +572,59 @@
       data : cos,
       color: '#00c0ef'
     }
-    
+    /*$.plot('#line-chart', [line_data1, line_data2], {
+      grid  : {
+        hoverable  : true,
+        borderColor: '#f3f3f3',
+        borderWidth: 1,
+        tickColor  : '#f3f3f3'
+      },
+      series: {
+        shadowSize: 0,
+        lines     : {
+          show: true
+        },
+        points    : {
+          show: true
+        }
+      },
+      lines : {
+        fill : false,
+        color: ['#3c8dbc', '#f56954']
+      },
+      yaxis : {
+        show: true
+      },
+      xaxis : {
+        show: true
+      }
+    })*/
+    //Initialize tooltip on hover
     $('<div class="tooltip-inner" id="line-chart-tooltip"></div>').css({
       position: 'absolute',
       display : 'none',
       opacity : 0.8
     }).appendTo('body')
-    
-	
+    /*$('#line-chart').bind('plothover', function (event, pos, item) {
+
+      if (item) {
+        var x = item.datapoint[0].toFixed(2),
+            y = item.datapoint[1].toFixed(2)
+
+        $('#line-chart-tooltip').html(item.series.label + ' of ' + x + ' = ' + y)
+          .css({
+            top : item.pageY + 5,
+            left: item.pageX + 5
+          })
+          .fadeIn(200)
+      } else {
+        $('#line-chart-tooltip').hide()
+      }
+
+    })*/
+	var sampledata = {};
 	linechart.showLoading();
-	$.ajax({
-        url:  "http://localhost:8080/projectTracker/statisticsByMonth?pp=ALL",
-        type:"get", 
-        data:"", 
-        dataType: "json",
-        success:function (data) {
-        	sampledata = data.object;
-        	refreshLineChart();
-        },
-        error:function (error) {
-            bootbox.alert("table loading failed");
-        }
-    })
-	
-	/*var lineOption = {
+	var lineOption = {
 		title : {
 		text : '',
 		textStyle : { //new add
@@ -325,34 +667,16 @@
 				}
 			},
 			//data : sampledata.num
-			data : [sampledata['M1'],sampledata['R1'],sampledata['M3'],sampledata['M4'],sampledata['R2'],sampledata['M6'],sampledata['M7'],sampledata['R3'],sampledata['M9'],sampledata['M10'],sampledata['R4'],sampledata['M12']]
+			data : [2,8,3,4,3,7,2,8,3,6,3,2]
 		}]
 		};
 		linechart.setOption(lineOption);
-		linechart.hideLoading();*/
-		
+		linechart.hideLoading();
 	})
 	
-	function getPpProjectData(){
-		var pp = $("#selectedPp").val();
-	  $.ajax({
-	        url:  "http://localhost:8080/projectTracker/statisticsByMonth?pp="+pp,
-	        type:"get", 
-	        data:"", 
-	        dataType: "json",
-	        success:function (data) {
-	        	sampledata = data.object;
-	        	refreshLineChart();
-	        },
-	        error:function (error) {
-	            bootbox.alert("table loading failed");
-	        }
-	    })
- 	 }
-	
 	function refreshLineChart(){
-		var pp = $("#selectedPp").val();
 		linechart.showLoading();
+		var pp = $("#selectedPp").val();
 		var lineOption = {
 			title : {
 			text : '',
@@ -396,7 +720,7 @@
 					}
 				},
 				//data : sampledata.num
-				data : [sampledata['M1'],sampledata['R1'],sampledata['M3'],sampledata['M4'],sampledata['R2'],sampledata['M6'],sampledata['M7'],sampledata['R3'],sampledata['M9'],sampledata['M10'],sampledata['R4'],sampledata['M12']]
+				data : [2,8,3,4,3,7,2,8,3,6,3,2]
 			}]
 			};
 		
@@ -407,7 +731,7 @@
 	
 	function refreshTable(param){
 		
-		alert(param.name+' total '+param.data +' projects for '+$("#selectedPp").val());
+		console.log(param);
 		
 		
 	}
